@@ -13,12 +13,19 @@ consumer = oauth.Consumer(key=CONSUMER_KEY,
 
 # Request token URL for Twitter.
 # Trends for global, WOEID = 1 is global
-request_token_url = "https://api.twitter.com/1.1/trends/place.json?id=1"
+request_token_url = "https://api.twitter.com/1.1/trends/place.json?id=2357536"
 
 # Create our client.
 client = oauth.Client(consumer)
 
 # The OAuth Client request works just like httplib2 for the most part.
 resp, content = client.request(request_token_url, "GET")
-print resp
-print content
+
+trend_data = json.loads(content)
+
+t = trend_data[0]["trends"]
+
+with open('data.json', 'w') as outfile:
+    json.dump(t, outfile)
+
+print trend_data
