@@ -75,13 +75,15 @@ def main():
                 genre_count[cluster][genre] += 1
             else:
                 genre_count[cluster][genre] = 1
+    with open('./genre_kmeans_out.json', 'w') as out_file:
+        json.dump(genre_count, out_file, indent=4, sort_keys=True)
 
     for i in range(len(genre_count)):
         for key, value in genre_count[i].items():
             genre_count[i][key] = value / total_count[i]
 
-    with open('./genre_kmeans_out.json', 'w') as out_file:
-        json.dump(genre_count, out_file)
+    with open('./genre_kmeans_out_percents.json', 'w') as out_file:
+        json.dump(genre_count, out_file, indent=4, sort_keys=True)
 
 if __name__ == '__main__':
     main()
