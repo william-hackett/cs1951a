@@ -1,0 +1,9 @@
+genre,artist_name,track_name,track_id,popularity,acousticness,danceability,duration_ms,energy,instrumentalness,key,liveness,loudness,mode,speechiness,tempo,time_signature,valence
+Opera,Giuseppe Verdi,"Stiffelio, Act III: Ei fugge! … Lina, pensai che un angelo … Oh gioia inesprimbile",7EsKYeHtTc4H4xWiTqSVZA,21,0.986,0.313,490867,0.231,0.000431,C#,0.0964,-14.287,Major,0.0547,86.001,4/4,0.0886
+Pop,Giuseppe Verdi,"Stiffelio, Act III: Ei fugge! … Lina, pensai che un angelo … Oh gioia inesprimbile",7EsKYeHtTc4H4xWiTqSVZA,21,0.986,0.313,490867,0.231,0.000431,C#,0.0964,-14.287,Major,0.0547,86.001,4/4,0.0886
+Dance,Why Don't We,Trust Fund Baby,54j7EaJPDmSZYcNYvLSJ78,73,0.0629,0.624,184460,0.785,0,G#,0.135,-3.337,Major,0.0498,163.929,4/4,0.593
+Pop,Kelsea Ballerini,Miss Me More,5NfJGBAL9mgFPRQxKJmiX2,74,0.014,0.643,192840,0.72,0,D,0.0834,-7.146,Major,0.0527,96.028,4/4,0.491
+Pop,Drake,Mob Ties,7rC5Pl8rQSX4myONQHYPBK,80,0.0456,0.755,205147,0.575,0.00124,E,0.276,-8.393,Minor,0.0678,85.987,4/4,0.49
+Pop,Travis Scott,5% TINT,11kDth1aKUEUMq9r1pqyds,74,0.173,0.712,196138,0.481,0,E,0.241,-5.415,Minor,0.0487,140,4/4,0.062
+Pop,Frank Ocean,Nights,7eqoqGkKwgOaWNNHx90uEZ,78,0.42,0.466,307151,0.548,1.01e-06,F,0.113,-9.362,Minor,0.118,89.815,4/4,0.423
+
