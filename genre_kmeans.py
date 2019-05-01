@@ -3,34 +3,36 @@ import json
 import numpy as np
 from sklearn.cluster import KMeans
 
+ACCEPTED_GENRES = ["Alternative", "Pop", "Rock", "Hip-Hop", "Country", "Indie", "Reggae", "Soul", "Blues", "Classical"]
+
+
 def gather_data(data_file):
     csv_reader = csv.DictReader(data_file, delimiter = ',')
     id_to_genre = {}
     index_to_id = []
     data = []
-    i = 0
     for row in csv_reader:
         #If it's not a new song, we already have it in data, so we just add the new genre to our list of genres
         # for that song
-        if row['track_id'] in id_to_genre:
-            id_to_genre[row['track_id']].append(row['\ufeffgenre'])
+        if row['\ufeffgenre'] in ACCEPTED_GENRES:
+            if row['track_id'] in id_to_genre:
+                id_to_genre[row['track_id']].append(row['\ufeffgenre'])
         #otherwise, we add the id-genre_set pair, the metrics to our data, and the id to our list of id's 
-        else:
-            id_to_genre[row['track_id']] = [row['\ufeffgenre']]
+            else:
+                id_to_genre[row['track_id']] = [row['\ufeffgenre']]
 
-            new_row = []
-            new_row.append(row['acousticness'])
-            new_row.append(row['danceability'])
-            new_row.append(row['energy'])
-            new_row.append(row['instrumentalness'])
-            new_row.append(row['liveness'])
-            new_row.append(row['loudness'])
-            new_row.append(row['speechiness'])
-            new_row.append(row['valence'])
-            data.append(np.array(new_row))
+                new_row = []
+                new_row.append(row['acousticness'])
+                new_row.append(row['danceability'])
+                new_row.append(row['energy'])
+                new_row.append(row['instrumentalness'])
+                new_row.append(row['liveness'])
+                new_row.append(row['loudness'])
+                new_row.append(row['speechiness'])
+                new_row.append(row['valence'])
+                data.append(np.array(new_row))
 
-            index_to_id.append(row['track_id'])
-            i += 0
+                index_to_id.append(row['track_id'])
 
 
     #The gist of this strategy is that at the end, we will be able to use our labels
@@ -47,10 +49,12 @@ def main():
     print('Reading data...')
     with open('./SpotifyFeats.csv') as song_file:
         genres, ids, data = gather_data(song_file)
+    with open('./genre_dict.json', 'w') as out_file:
+        json.dump(genres, out_file)
 
     #set cluster_count here
-    cluster_count = 26
-    print('26 clusters')
+    cluster_count = 10
+    print(str(cluster_count) + ' clusters')
 
     #run kmeans
     print('Running KMeans...')
@@ -58,6 +62,8 @@ def main():
     labels = kmeans.labels_
     with open('./labels.json', 'w') as out_file:
         json.dump(labels.tolist(), out_file)
+
+    genre_count_total = {}
 
     genre_count = [{} for i in range(cluster_count)]
     total_count = [0 for i in range(cluster_count)]
@@ -75,8 +81,15 @@ def main():
                 genre_count[cluster][genre] += 1
             else:
                 genre_count[cluster][genre] = 1
+
+            if genre in genre_count_total:
+                genre_count_total[genre] += 1
+            else:
+                genre_count_total[genre] = 1
+
     with open('./genre_kmeans_out.json', 'w') as out_file:
         json.dump(genre_count, out_file, indent=4, sort_keys=True)
+    print(genre_count_total)
 
     for i in range(len(genre_count)):
         for key, value in genre_count[i].items():
